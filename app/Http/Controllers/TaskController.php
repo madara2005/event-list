@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Repositories\TaskRepository;
 use App\Task;
 
+
 class TaskController extends Controller
 {
 	protected $tasks;
@@ -23,6 +24,7 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
+    	
 
     	return view('tasks.index', [
     		'tasks' => $this->tasks->forUser($request->user())
@@ -35,6 +37,7 @@ class TaskController extends Controller
     	$this->validate($request, [
     		'name' => 'required|max:255'
     	]);
+		
 
     	$request->user()->tasks()->create([
     		'name' => $request->name
