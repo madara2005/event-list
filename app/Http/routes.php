@@ -11,7 +11,7 @@
 |
 */
 
-//Route::group(['middleware' => ['web']], function(){
+Route::group(['middleware' => ['web']], function(){
 
 	Route::get('/', function () {
 	    return view('welcome');
@@ -21,7 +21,11 @@
 
 	Route::get('/tasks', 'TaskController@index');
 	Route::post('/task', 'TaskController@store');
-	Route::delete('/task/{task}', 'TaskController@destroy');	
-//});
+	Route::delete('/task/{task}', 'TaskController@destroy');
+	Route::get('/task/{task}', 'TaskController@edit');	
+	Route::patch('/task/{task}', 'TaskController@update');
+
+	Route::get('tasks/removeflash', 'TaskController@removeFlashMessages');
+});
 
 

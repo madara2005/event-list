@@ -4,6 +4,8 @@
 
 <div class="container">
 	<div class="col-sm-offset-2 col-sm-8">
+
+		<div>@include('common.message')</div>
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -12,14 +14,14 @@
 
 			<div class="panel-body">
 				@include('common.errors')
-
+				
 				<form action="{{ url('task') }}" method="POST" class="form-horizontal" >
 					{{ csrf_field() }}
 
 					<div class="form-group">
 						<label for="task-name" class="col-sm-3 control-label">Task</label>
 						<div class="col-sm-6">
-							<input type="test" name="name" id="task-name" class="form-control">
+							<input type="text" name="name" id="task-name" class="form-control">
 						</div>
 					</div>
 
@@ -49,6 +51,7 @@
 						<thead>
 							<th>Task</th>
 							<th></th>
+							<th></th>
 						</thead>
 						<tbody>
 							@foreach($tasks as $task)
@@ -64,10 +67,13 @@
 											</button>
 										</form>
 									</td>
+									<td>
+										<a href="{{ url('task/'.$task->id) }}" class="btn btn-primary" role="button"><li class="fa fa-pencil-square-o "> Edit </li></a>
+									</td>
 								</tr>
 							@endforeach
 							<tr>
-								<td colspan="2"><div>{{ $tasks->links() }}</div></td>
+								<td colspan="3"><div>{{ $tasks->links() }}</div></td>
 							</tr>
 						</tbody>
 					</table>

@@ -10,14 +10,14 @@ class TaskRepository
 	public function forUser(User $user)
 	{
 		//Task::paginate(2);
-		return Task::where('user_id', $user->id)
-					->orderBy('created_at','asc')
-					->simplePaginate(2);
-					//->get();
+		// return Task::where('user_id', $user->id)
+		// 			->orderBy('created_at','asc')
+		// 			->simplePaginate(2);
+		// 			//->get();
 
 
-		// return $user->tasks()
-		// 			->orderBY('created_at', 'asc')
-		// 			->get();
+		return $user->tasks()
+					->orderBY('created_at', 'asc')
+					->Paginate(2);
 	}
 }

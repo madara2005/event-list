@@ -21,14 +21,12 @@ class TaskController extends Controller
     	$this->tasks = $tasks;
     }
 
-
+    
     public function index(Request $request)
     {
-    	
+        $tasks = $this->tasks->forUser($request->user());
 
-    	return view('tasks.index', [
-    		'tasks' => $this->tasks->forUser($request->user())
-    	]);
+    	return view('tasks.index', compact('tasks'));
     }
 
 
@@ -43,6 +41,8 @@ class TaskController extends Controller
     		'name' => $request->name
     	]);
 
+    	flash('Task added successfully.', 'success');
+
     	return redirect('/tasks');
     }
 
@@ -54,5 +54,44 @@ class TaskController extends Controller
     	$task->delete();
 
     	return redirect('/tasks');
+    }
+
+
+    public function edit(Task $task)
+    {
+    	return view('tasks.edit', compact('task'));
+    }
+
+
+    public function update(Task $task, Request $request)
+    {
+    	$this->validate($request, [
+    		'name' => 'required|max:255'
+    	]);
+
+        flash('Task Updated Successfully.', 'success');
+
+    	$task->update($request->all());
+
+    	
+
+    	if($request->input('edit'))
+    	{
+	    	return view('tasks.edit', compact('task'));
+    	}
+    	else
+    	{
+    		return redirect('tasks');
+    	}
+    	
+    	
+    }
+
+
+    public function removeFlashMessages()
+    {
+        //session()->forget(['success']);
+
+        return redirect('/tasks');
     }
 }
